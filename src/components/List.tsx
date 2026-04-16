@@ -1,15 +1,42 @@
+import { useState } from "react";
 import styles from "./List.module.css";
 import TodoItem from "./TodoItem";
+import type { Todo } from "../type";
 
-const List = () => {
+interface ListProps {
+  todos: Todo[];
+}
+
+const List = ({ todos }: ListProps) => {
+  const [search, setSearch] = useState<string>("");
+
+  const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+  const getFilteredData = (): Todo[] => {
+    if (search === "") {
+      return todos;
+    }
+    return todos.filter((todo) =>
+      todo.content.toLowerCase().includes(search.toLowerCase()),
+    );
+  };
+
+  const filteredTodos = getFilteredData();
+
   return (
     <div className={styles.List}>
       <h4>Todo List ✌️</h4>
-      <input type="text" placeholder="검색어를 입력해주세요." />
+      <input
+        value={search}
+        onChange={onChangeSearch}
+        type="text"
+        placeholder="검색어를 입력해주세요."
+      />
       <div className={styles.todos_wrapper}>
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
+        {filteredTodos.map((todo) => (
+          <TodoItem key={todo.id} {...todo} />
+        ))}
       </div>
     </div>
   );
