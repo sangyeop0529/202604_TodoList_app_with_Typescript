@@ -5,14 +5,8 @@ import List from "./components/List";
 import "./App.css";
 import type { Todo } from "./type";
 
-const mockData: Todo[] = [
-  { id: 0, isDone: false, content: "React", date: new Date().getTime() },
-  { id: 1, isDone: false, content: "TypeScript", date: new Date().getTime() },
-  { id: 2, isDone: false, content: "Python", date: new Date().getTime() },
-];
-
 const App = () => {
-  const [todos, setTodos] = useState<Todo[]>(mockData);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const idRef = useRef(3);
 
   const onCreate = (content: string): void => {
@@ -25,11 +19,24 @@ const App = () => {
 
     setTodos([...todos, newTodo]);
   };
+
+  const onUpdate = (targetId: number) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === targetId ? { ...todo, isDone: !todo.isDone } : todo,
+      ),
+    );
+  };
+
+  const onDelete = (targetId: number) => {
+    setTodos(todos.filter((todo) => todo.id !== targetId));
+  };
+
   return (
     <div className="app">
       <Header />
       <Editor onCreate={onCreate} />
-      <List todos={todos} />
+      <List todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
     </div>
   );
 };

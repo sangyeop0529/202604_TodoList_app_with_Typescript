@@ -5,9 +5,11 @@ import type { Todo } from "../type";
 
 interface ListProps {
   todos: Todo[];
+  onUpdate: (targetId: number) => void;
+  onDelete: (targetId: number) => void;
 }
 
-const List = ({ todos }: ListProps) => {
+const List = ({ todos, onUpdate, onDelete }: ListProps) => {
   const [search, setSearch] = useState<string>("");
 
   const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +37,12 @@ const List = ({ todos }: ListProps) => {
       />
       <div className={styles.todos_wrapper}>
         {filteredTodos.map((todo) => (
-          <TodoItem key={todo.id} {...todo} />
+          <TodoItem
+            key={todo.id}
+            {...todo}
+            onUpdate={onUpdate}
+            onDelete={onDelete}
+          />
         ))}
       </div>
     </div>
