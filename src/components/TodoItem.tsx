@@ -14,10 +14,10 @@ const TodoItem = ({
   onUpdate,
   onDelete,
 }: TodoItemProps) => {
-  const onChangeCheckBox = () => {
+  const onChangeCheckBox = (): void => {
     onUpdate(id);
   };
-  const onClickDeleteButton = () => {
+  const onClickDeleteButton = (): void => {
     onDelete(id);
   };
   return (

@@ -7,7 +7,7 @@ import type { Todo } from "./type";
 
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const idRef = useRef(3);
+  const idRef = useRef<number>(3);
 
   const onCreate = (content: string): void => {
     const newTodo = {
@@ -20,7 +20,7 @@ const App = () => {
     setTodos([...todos, newTodo]);
   };
 
-  const onUpdate = (targetId: number) => {
+  const onUpdate = (targetId: number): void => {
     setTodos(
       todos.map((todo) =>
         todo.id === targetId ? { ...todo, isDone: !todo.isDone } : todo,
@@ -28,7 +28,7 @@ const App = () => {
     );
   };
 
-  const onDelete = (targetId: number) => {
+  const onDelete = (targetId: number): void => {
     setTodos(todos.filter((todo) => todo.id !== targetId));
   };
 
