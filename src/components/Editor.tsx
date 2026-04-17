@@ -19,7 +19,7 @@ const Editor = ({ onCreate }: EditorProps) => {
     }
   };
 
-  const onSubmit = () => {
+  const onSubmit = (): void => {
     if (content === "") {
       contentRef.current?.focus();
       return;

@@ -12,7 +12,7 @@ interface ListProps {
 const List = ({ todos, onUpdate, onDelete }: ListProps) => {
   const [search, setSearch] = useState<string>("");
 
-  const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSearch(e.target.value);
   };
   const getFilteredData = (): Todo[] => {
